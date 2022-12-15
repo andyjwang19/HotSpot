@@ -18,7 +18,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hotspot.hotspot",
+      "config": {
+        "googleMapsApiKey": "AIzaSyBwhoGsaLhCOiRPjzuHm6c5yY1_erxQwRM"
+      }
     },
     "android": {
       "adaptiveIcon": {
