@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 
 import Spot from '../models/Spot';
 import RatingGroup from './RatingGroup';
+import ImageCarouselGroup from './ImageCarouselGroup';
 
 interface FullScreenSpotProps {
     currSpot: Spot | undefined;
@@ -18,7 +19,7 @@ export default function FullScreenSpot(FullScreenSpotProps: FullScreenSpotProps)
 
     const { currSpot } = FullScreenSpotProps;
     if (currSpot === undefined) {
-        return;
+        return null;
     }
     return (
         <View style={styles.container}>
@@ -29,6 +30,9 @@ export default function FullScreenSpot(FullScreenSpotProps: FullScreenSpotProps)
                     <Text style={styles.spotNumReviews}>12 Reviews</Text>
                     <View style={styles.ratingGroup}>
                         <RatingGroup />
+                    </View>
+                    <View style={styles.imageCarouselContainer}>
+                        <ImageCarouselGroup />
                     </View>
                 </View>
             </View>
@@ -45,7 +49,7 @@ const styles = StyleSheet.create({
         left: 0,
         width: '100%',
         height: Dimensions.get('window').height - 95,
-        backgroundColor: 'red',
+        // backgroundColor: 'red',
         // alignItems: 'center',
         // justifyContent: 'center',
     },
@@ -71,6 +75,11 @@ const styles = StyleSheet.create({
     ratingGroup: {
         marginTop: 10,
         // left: 134 - 25,
+    },
+    imageCarouselContainer: {
+        width: '100%',
+        top: -50,
+        // left: 161 + 23,
     },
 
     reviewContainer: {},

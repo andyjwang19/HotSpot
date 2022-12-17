@@ -8,6 +8,7 @@ import ReviewGroup from './ReviewGroup';
 import { DragableView } from './DraggableView';
 import { useFonts } from 'expo-font';
 import RatingGroup from './RatingGroup';
+import ImageCarouselGroup from './ImageCarouselGroup';
 
 export enum dragResultOptions {
     Normal,
@@ -38,19 +39,7 @@ export default function SpotPopup(SpotPopupProps: SpotPopupProps) {
             <View style={styles.ratingContainer}>
                 <RatingGroup />
             </View>
-            <ScrollView
-                horizontal
-                style={styles.imageCarousel}
-                showsHorizontalScrollIndicator={false}
-            >
-                <View style={styles.imageContainer}>
-                    <View style={[styles.spotImages, styles.firstImage]}></View>
-                    <View style={[styles.spotImages]}></View>
-                    <View style={[styles.spotImages]}></View>
-                    <View style={[styles.spotImages]}></View>
-                    <View style={[styles.spotImages]}></View>
-                </View>
-            </ScrollView>
+            <ImageCarouselGroup />
             <View style={styles.reviewsContainer}>
                 {Array.isArray(currSpot.reviews) ? (
                     currSpot.reviews[0] ? (
@@ -96,27 +85,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 3,
         top: 14.46,
         left: 170,
-    },
-
-    imageCarousel: {
-        width: '100%',
-        height: 124,
-        top: 123 - 65,
-    },
-    imageContainer: {
-        left: 25,
-        flexDirection: 'row',
-    },
-    spotImages: {
-        width: 141,
-        height: 124,
-        borderRadius: 10,
-        backgroundColor: 'black',
-        marginRight: 12,
-        flex: 1,
-    },
-    firstImage: {
-        // left: 25,
     },
 
     reviewsContainer: {

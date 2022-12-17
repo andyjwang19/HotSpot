@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
+import ProfileComponent from './ProfileComponent';
 
 export default function Header() {
     return (
@@ -11,7 +12,7 @@ export default function Header() {
                 />
             </View>
             <View style={styles.profile}>
-                <Text>PROFILE</Text>
+                <ProfileComponent person={'andy'} radius={23} style={styles.profilePosition} />
             </View>
         </View>
     );
@@ -35,7 +36,8 @@ const styles = StyleSheet.create({
     },
     profile: {
         position: 'absolute',
-        right: 10,
-        top: 65,
+        right: 11,
+        top: 50,
     },
+    profilePosition: {},
 });

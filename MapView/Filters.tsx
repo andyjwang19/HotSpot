@@ -76,11 +76,11 @@ const Filters = (FilterProps: FilterProps) => {
                 )}
             </View>
 
-            {/* <View style={styles.additionalFiltersContainer}>
+            <View style={styles.additionalFiltersContainer}>
                 <TouchableOpacity style={styles.activites}>
                     <Text style={styles.priceButtonText}>Price </Text>
                 </TouchableOpacity>
-            </View> */}
+            </View>
         </View>
     );
 };

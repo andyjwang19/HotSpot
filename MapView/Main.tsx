@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Marker, CalloutSubview } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
 import { useState, useEffect } from 'react';
 
 import Filters from './Filters';
@@ -66,6 +66,8 @@ export default function Main() {
         }
     }, [dragResult]);
 
+    const aniRegion = new AnimatedRegion();
+
     return dragResult !== dragResultOptions.FullScreen ? (
         <View style={styles.container}>
             <Filters filters={filters} setFilters={_setFilters} />
@@ -73,11 +75,11 @@ export default function Main() {
                 style={styles.map}
                 provider={PROVIDER_GOOGLE}
                 showsUserLocation={true}
-                initialRegion={{
-                    latitude: 40.806358,
-                    longitude: -73.962389,
-                    latitudeDelta: 0.0722,
-                    longitudeDelta: 0.0121,
+                region={{
+                    latitude: currSpot ? currSpot.latitude - 0.0035 : 40.806358,
+                    longitude: currSpot ? currSpot.longitude : -73.962389,
+                    latitudeDelta: currSpot ? 0.01 : 0.0222,
+                    longitudeDelta: currSpot ? 0.01 : 0.0111,
                 }}
                 onMarkerPress={(e) =>
                     updateCurrSpotFromId({
