@@ -1,16 +1,5 @@
 import { Activity } from './filters';
-
-export enum Rating {
-    MID,
-    LIKE,
-    LOVE,
-}
-
-interface Review {
-    author: string;
-    reviewText: string;
-    rating: Rating;
-}
+import Review from './Review';
 
 interface Location {
     longitude: number;
@@ -21,6 +10,5 @@ export default interface Spot extends Location {
     id: number;
     name: string;
     activityType: Activity;
-    suggestor: string; //add people objects
     reviews: Review[];
 }

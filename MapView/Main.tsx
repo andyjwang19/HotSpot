@@ -3,23 +3,25 @@ import MapView, { PROVIDER_GOOGLE, Marker, CalloutSubview } from 'react-native-m
 import { useState, useEffect } from 'react';
 
 import Filters from './Filters';
-import SpotPopup from './SpotPopup';
+import SpotPopup, { dragResultOptions } from './SpotPopup';
 
 import { Activity, FilterOptions } from '../models/filters';
 import Spot from '../models/Spot';
-import spotsData from '../data/spots.json';
+import DataLoader from './DataLoader';
 
-function parseSpotsData() {
-    return new Map(spotsData.map((s) => [s.id, s]));
+import spotsData from '../data/spots.json';
+import FullScreenSpot from './FullScreenSpot';
+
+function parseSpotsData(spots: Spot[]) {
+    return new Map(spots.map((s) => [s.id, s]));
 }
 
 export default function Main() {
-    const spotsMap = parseSpotsData();
+    const loader = new DataLoader();
+    const spotsMap = parseSpotsData(loader.loadSpots());
 
     const [filters, setFilters] = useState({} as FilterOptions);
     const _setFilters = (e: FilterOptions) => {
-        console.log(`from comp`, e);
-        console.log(`curr filt`, filters);
         if (filters.activities === e.activities) {
             setFilters({ activities: Activity.None, price: e.price });
         } else {
@@ -27,31 +29,44 @@ export default function Main() {
         }
     };
 
+    const [dragResult, setDragResult] = useState<dragResultOptions>(dragResultOptions.Minimize);
+    console.log(`DRAG RES IN MAIN`, dragResult);
+
     const [currSpot, setCurrSpot] = useState<Spot>();
     const updateCurrSpotFromId = (c: { id: number; latitude: number; longitude: number }) => {
         const currSpotData = spotsMap.get(c.id);
         if (
             currSpotData === undefined ||
             currSpotData.name === undefined ||
-            currSpotData.activtyType === undefined ||
-            currSpotData.suggestor === undefined
+            currSpotData.activityType === undefined
+            // currSpotData.suggestor === undefined
         ) {
             console.log(`ERROR: SPOT JSON CORRUPT, has undefined parameters in `);
             // crash? idk
         } else {
+            setDragResult(dragResultOptions.Normal);
             setCurrSpot({
                 id: c.id,
                 name: currSpotData.name,
-                activityType: currSpotData.activtyType as unknown as Activity,
-                suggestor: currSpotData.suggestor,
-                reviews: [],
-                latitude: c.latitude,
-                longitude: c.longitude,
+                activityType: currSpotData.activityType as unknown as Activity,
+                // suggestor: currSpotData.suggestor,
+                reviews: currSpotData.reviews,
+                latitude: currSpotData.latitude,
+                longitude: currSpotData.longitude,
             });
         }
     };
-    console.log(`currSpot`, currSpot);
-    return (
+    // const clearCurrSpot = () => {
+    //     setCurrSpot(undefined);
+    // };
+
+    useEffect(() => {
+        if (dragResult === dragResultOptions.Minimize) {
+            setCurrSpot(undefined);
+        }
+    }, [dragResult]);
+
+    return dragResult !== dragResultOptions.FullScreen ? (
         <View style={styles.container}>
             <Filters filters={filters} setFilters={_setFilters} />
             <MapView
@@ -80,8 +95,16 @@ export default function Main() {
                     />
                 ))}
             </MapView>
-            {currSpot !== undefined && currSpot !== null ? <SpotPopup currSpot={currSpot} /> : null}
+            {currSpot !== undefined && currSpot !== null ? (
+                <SpotPopup
+                    currSpot={currSpot}
+                    dragResult={dragResult}
+                    setDragResult={setDragResult}
+                />
+            ) : null}
         </View>
+    ) : (
+        <FullScreenSpot currSpot={currSpot} />
     );
 }
 

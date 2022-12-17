@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "spotId": 1,
+        "authorId": 1,
+        "rating": 0,
+        "review": "I am Andy and I find this place to be a little drab. Not displeasing in any way, but not all that exciting. If you like this place, you too might be a little drab"
+    },
+    {
+        "id": 2,
+        "spotId": 1,
+        "authorId": 2,
+        "rating": 2,
+        "review": "Hi fans, this is Theo and I LOVE LOVE LOVE this place. I would give up my first 'born' child for this place."
+    },
+    {
+        "id": 3,
+        "spotId": 1,
+        "authorId": 2,
+        "rating": 1,
+        "review": "I am Rachel and I like this place, but not too too strongly."
+    }
+]

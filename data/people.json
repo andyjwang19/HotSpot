@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "firstName": "Andy",
+        "lastName": "Wang",
+        "profileSlug": "andy"
+    },
+    {
+        "id": 2,
+        "firstName": "Theo",
+        "lastName": "Mack",
+        "profileSlug": "theo"
+    },
+    {
+        "id": 3,
+        "firstName": "Rachel",
+        "lastName": "Michelson",
+        "profileSlug": "rachel"
+    },
+    {
+        "id": 4,
+        "firstName": "Teji",
+        "lastName": "Vijayakumar",
+        "profileSlug": "teji"
+    }
+]

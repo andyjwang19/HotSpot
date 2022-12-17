@@ -3,7 +3,6 @@
         "id": 1,
         "name": "Symposium",
         "activtyType": "Food",
-        "suggestor": "Andy",
         "latitude": 40.8053695,
         "longitude": -73.9641419
     },
@@ -11,7 +10,6 @@
         "id": 2,
         "name": "Tom's Diner",
         "activtyType": "Food",
-        "suggestor": "Andy",
         "latitude": 40.8052914,
         "longitude": -73.9665458
     },
@@ -19,7 +17,6 @@
         "id": 3,
         "name": "Roti Roll",
         "activtyType": "Food",
-        "suggestor": "Teji",
         "latitude": 40.8031684,
         "longitude": -73.9656956
     },
@@ -27,7 +24,6 @@
         "id": 4,
         "name": "Happy Hot Hunan",
         "activtyType": "Food",
-        "suggestor": "Teji",
         "latitude": 40.8022845,
         "longitude": -73.9655832
     },
@@ -35,7 +31,6 @@
         "id": 5,
         "name": "108 Food Dried Hot Pot",
         "activtyType": "Food",
-        "suggestor": "Rachel",
         "latitude": 40.8025027,
         "longitude": -73.9663699
     },
@@ -43,7 +38,6 @@
         "id": 6,
         "name": "Nicholas Roerich Museum",
         "activtyType": "Fun",
-        "suggestor": "Teji",
         "latitude": 40.8027912,
         "longitude": -73.9675132
     },
@@ -51,7 +45,6 @@
         "id": 7,
         "name": "Hex and Company",
         "activtyType": "Fun",
-        "suggestor": "Theo",
         "latitude": 40.8055545,
         "longitude": -73.9660733
     }
