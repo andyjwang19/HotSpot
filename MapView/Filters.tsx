@@ -1,5 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Pressable, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Pressable,
+    Image,
+    TouchableHighlight,
+    TouchableOpacity,
+} from 'react-native';
 import { useState, Component } from 'react';
 import { FilterOptions, Activity } from '../models/filters';
 
@@ -8,19 +16,17 @@ interface FilterProps {
     setFilters: (arg0: FilterOptions) => void;
 }
 
-const Filters = (FilterProps: FilterProps) => {
+const Filters = ({ filters, setFilters }: FilterProps) => {
     // const Filters = (filters: FilterOptions, setFilters: (arg0: FilterOptions) => Promise<void>) => {
 
     // const [filters, setFilters] = useState({} as FilterOptions)
     return (
         <View style={styles.container}>
             <View style={styles.activitiesContainer}>
-                {FilterProps.filters.activities !== Activity.Food ? (
+                {!filters.foodSelected ? (
                     <TouchableOpacity
                         style={StyleSheet.compose(styles.activites, styles.foodButton)}
-                        onPress={() =>
-                            FilterProps.setFilters({ activities: Activity.Food, price: 0 })
-                        }
+                        onPress={() => setFilters({ ...filters, foodSelected: true })}
                     >
                         <Text style={styles.foodButtonText}>Food</Text>
                     </TouchableOpacity>
@@ -28,48 +34,41 @@ const Filters = (FilterProps: FilterProps) => {
                     <TouchableOpacity
                         style={StyleSheet.compose(styles.activites, styles.pressedFoodButton)}
                         onPress={() =>
-                            FilterProps.setFilters({ activities: Activity.Food, price: 0 })
+                            // FilterProps.setFilters({ activities: Activity.Food, price: 0 })
+                            setFilters({ ...filters, foodSelected: false })
                         }
                     >
                         <Text style={styles.pressedFoodButtonText}>Food</Text>
                     </TouchableOpacity>
                 )}
 
-                {FilterProps.filters.activities !== Activity.Drink ? (
+                {!filters.drinkSelected ? (
                     <TouchableOpacity
                         style={StyleSheet.compose(styles.activites, styles.drinkButton)}
-                        onPress={() =>
-                            FilterProps.setFilters({ activities: Activity.Drink, price: 0 })
-                        }
+                        onPress={() => setFilters({ ...filters, drinkSelected: true })}
                     >
                         <Text style={styles.drinkButtonText}>Drink</Text>
                     </TouchableOpacity>
                 ) : (
                     <TouchableOpacity
                         style={StyleSheet.compose(styles.activites, styles.pressedDrinkButton)}
-                        onPress={() =>
-                            FilterProps.setFilters({ activities: Activity.Drink, price: 0 })
-                        }
+                        onPress={() => setFilters({ ...filters, drinkSelected: false })}
                     >
                         <Text style={styles.pressedDrinkButtonText}>Drink</Text>
                     </TouchableOpacity>
                 )}
 
-                {FilterProps.filters.activities !== Activity.Fun ? (
+                {!filters.funSelected ? (
                     <TouchableOpacity
                         style={StyleSheet.compose(styles.activites, styles.funButton)}
-                        onPress={() =>
-                            FilterProps.setFilters({ activities: Activity.Fun, price: 0 })
-                        }
+                        onPress={() => setFilters({ ...filters, funSelected: true })}
                     >
                         <Text style={styles.funButtonText}>Fun</Text>
                     </TouchableOpacity>
                 ) : (
                     <TouchableOpacity
                         style={StyleSheet.compose(styles.activites, styles.pressedFunButton)}
-                        onPress={() =>
-                            FilterProps.setFilters({ activities: Activity.Fun, price: 0 })
-                        }
+                        onPress={() => setFilters({ ...filters, funSelected: false })}
                     >
                         <Text style={styles.pressedFunButtonText}>Fun</Text>
                     </TouchableOpacity>
@@ -96,33 +95,35 @@ const pressedFunColor = '#D9FBFF';
 const styles = StyleSheet.create({
     container: {
         zIndex: 3,
-        // flexDirection: 'row',
     },
     activitiesContainer: {
-        // display: 'flex',
         flexDirection: 'row',
+        marginLeft: 5,
     },
     additionalFiltersContainer: {
         marginTop: 10,
+        marginLeft: 5,
     },
     activites: {
         width: 122,
         height: 39,
-        // position: 'absolute',
         top: 7,
-        left: 5,
-        right: 0,
+        marginRight: 7,
         borderWidth: 2,
         borderColor: 'black',
         borderRadius: 20,
         justifyContent: 'center',
         backgroundColor: 'white',
-        marginRight: 11,
     },
 
     foodButtonText: {
         textAlign: 'center',
         color: foodColor,
+    },
+    testButtonText: {
+        textAlign: 'center',
+        width: 122,
+        height: 39,
     },
     pressedFoodButtonText: {
         textAlign: 'center',
@@ -157,16 +158,7 @@ const styles = StyleSheet.create({
         borderColor: pressedFoodColor,
     },
     drinkButton: {
-        // borderColor: foodColor,
         borderColor: drinkColor,
-        // position: 'absolute',
-        // top: 50,
-        // left: 140,
-        // zIndex: 50,
-        // marginLeft: 133,
-        // borderColor: funColor,
-        // left: 133,
-        // zIndex: 100,
     },
     pressedDrinkButton: {
         backgroundColor: drinkColor,
@@ -174,7 +166,6 @@ const styles = StyleSheet.create({
     },
     funButton: {
         borderColor: funColor,
-        // left: 263,
     },
     pressedFunButton: {
         backgroundColor: funColor,

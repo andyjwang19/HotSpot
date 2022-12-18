@@ -1,4 +1,13 @@
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    Image,
+    TouchableOpacity,
+    StyleProp,
+    ViewStyle,
+} from 'react-native';
 
 import ProfileComponent from '../ProfileComponent';
 
@@ -7,10 +16,11 @@ import { Rating } from '../models/Review';
 
 interface ReviewProps {
     review: Review;
+    style?: StyleSheet;
 }
 
 export default function ReviewGroup(ReviewProps: ReviewProps) {
-    const { review } = ReviewProps;
+    const { review, style } = ReviewProps;
     return (
         <View style={styles.review}>
             <ProfileComponent

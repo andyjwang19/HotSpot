@@ -9,28 +9,30 @@ import { Activity, FilterOptions } from '../models/filters';
 import Spot from '../models/Spot';
 import DataLoader from './DataLoader';
 
-import spotsData from '../data/spots.json';
+// import spotsData from '../data/spots.json';
 import FullScreenSpot from './FullScreenSpot';
 
 function parseSpotsData(spots: Spot[]) {
     return new Map(spots.map((s) => [s.id, s]));
 }
 
-export default function Main() {
+interface MainProps {
+    filters: FilterOptions;
+    setFilters: (arg0: FilterOptions) => void;
+}
+export default function Main({ filters, setFilters }: MainProps) {
     const loader = new DataLoader();
-    const spotsMap = parseSpotsData(loader.loadSpots());
+    const spotsData = loader.loadSpots();
+    const spotsMap = parseSpotsData(spotsData);
 
-    const [filters, setFilters] = useState({} as FilterOptions);
-    const _setFilters = (e: FilterOptions) => {
-        if (filters.activities === e.activities) {
-            setFilters({ activities: Activity.None, price: e.price });
-        } else {
-            setFilters(e);
-        }
-    };
+    // const [filters, setFilters] = useState<FilterOptions>({
+    //     foodSelected: false,
+    //     drinkSelected: false,
+    //     funSelected: false,
+    //     price: 0,
+    // });
 
     const [dragResult, setDragResult] = useState<dragResultOptions>(dragResultOptions.Minimize);
-    console.log(`DRAG RES IN MAIN`, dragResult);
 
     const [currSpot, setCurrSpot] = useState<Spot>();
     const updateCurrSpotFromId = (c: { id: number; latitude: number; longitude: number }) => {
@@ -68,9 +70,22 @@ export default function Main() {
 
     const aniRegion = new AnimatedRegion();
 
+    const filterSpots = (spotsToFilter: Spot[], filter: FilterOptions) => {
+        if (!(filter.drinkSelected || filter.foodSelected || filter.funSelected)) {
+            return spotsToFilter;
+        }
+        return spotsToFilter.filter((s) => {
+            return (
+                (filter.foodSelected ? s.activityType === Activity.Food : false) ||
+                (filter.drinkSelected ? s.activityType === Activity.Drink : false) ||
+                (filter.funSelected ? s.activityType === Activity.Fun : false)
+            );
+        });
+    };
+
     return dragResult !== dragResultOptions.FullScreen ? (
         <View style={styles.container}>
-            <Filters filters={filters} setFilters={_setFilters} />
+            <Filters filters={filters} setFilters={setFilters} />
             <MapView
                 style={styles.map}
                 provider={PROVIDER_GOOGLE}
@@ -89,13 +104,36 @@ export default function Main() {
                     })
                 }
             >
-                {spotsData?.map((s) => (
-                    <Marker
-                        key={s.id}
-                        coordinate={{ latitude: s.latitude, longitude: s.longitude }}
-                        identifier={s.id.toString()}
-                    />
-                ))}
+                {filterSpots(spotsData, filters)?.map((s) => {
+                    if ((s.activityType as unknown as Activity) === Activity.Food) {
+                        return (
+                            <Marker
+                                key={s.id}
+                                coordinate={{ latitude: s.latitude, longitude: s.longitude }}
+                                identifier={s.id.toString()}
+                                icon={require('../assets/Icons/foodGeotag.png')}
+                            />
+                        );
+                    } else if ((s.activityType as unknown as Activity) === Activity.Drink) {
+                        return (
+                            <Marker
+                                key={s.id}
+                                coordinate={{ latitude: s.latitude, longitude: s.longitude }}
+                                identifier={s.id.toString()}
+                                icon={require('../assets/Icons/drinkGeotag.png')}
+                            />
+                        );
+                    } else {
+                        return (
+                            <Marker
+                                key={s.id}
+                                coordinate={{ latitude: s.latitude, longitude: s.longitude }}
+                                identifier={s.id.toString()}
+                                icon={require('../assets/Icons/funGeotag.png')}
+                            />
+                        );
+                    }
+                })}
             </MapView>
             {currSpot !== undefined && currSpot !== null ? (
                 <SpotPopup
@@ -106,7 +144,7 @@ export default function Main() {
             ) : null}
         </View>
     ) : (
-        <FullScreenSpot currSpot={currSpot} />
+        <FullScreenSpot currSpot={currSpot} setDragResult={setDragResult} />
     );
 }
 

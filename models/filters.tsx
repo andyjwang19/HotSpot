@@ -1,11 +1,14 @@
 export enum Activity {
     None,
-    Food,
-    Drink,
-    Fun,
+    Food = 'Food',
+    Drink = 'Drink',
+    Fun = 'Fun',
 }
 
 export interface FilterOptions {
-    activities: Activity; //[]
+    // activities: Activity; //[]
+    foodSelected: boolean;
+    drinkSelected: boolean;
+    funSelected: boolean;
     price: number;
 }

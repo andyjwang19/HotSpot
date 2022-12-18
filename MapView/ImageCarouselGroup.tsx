@@ -34,7 +34,9 @@ const styles = StyleSheet.create({
     imageCarousel: {
         width: '100%',
         height: 124,
-        top: 123 - 65,
+        top: 0,
+        // borderColor: 'red',
+        // borderWidth: 2,
     },
     imageContainer: {
         left: 25,

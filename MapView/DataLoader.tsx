@@ -11,7 +11,7 @@ export default class DataLoader {
         return spotsData.map((s) => {
             return {
                 ...s,
-                activityType: s.activtyType as unknown as Activity,
+                activityType: s.activityType as Activity,
                 reviews: this.loadReviewsForSpotId(s.id),
             } as Spot;
         });

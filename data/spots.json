@@ -2,50 +2,71 @@
     {
         "id": 1,
         "name": "Symposium",
-        "activtyType": "Food",
+        "activityType": "Food",
         "latitude": 40.8053695,
         "longitude": -73.9641419
     },
     {
         "id": 2,
         "name": "Tom's Diner",
-        "activtyType": "Food",
+        "activityType": "Food",
         "latitude": 40.8052914,
         "longitude": -73.9665458
     },
     {
         "id": 3,
         "name": "Roti Roll",
-        "activtyType": "Food",
+        "activityType": "Food",
         "latitude": 40.8031684,
         "longitude": -73.9656956
     },
     {
         "id": 4,
         "name": "Happy Hot Hunan",
-        "activtyType": "Food",
+        "activityType": "Food",
         "latitude": 40.8022845,
         "longitude": -73.9655832
     },
     {
         "id": 5,
         "name": "108 Food Dried Hot Pot",
-        "activtyType": "Food",
+        "activityType": "Food",
         "latitude": 40.8025027,
         "longitude": -73.9663699
     },
     {
         "id": 6,
         "name": "Nicholas Roerich Museum",
-        "activtyType": "Fun",
+        "activityType": "Fun",
         "latitude": 40.8027912,
         "longitude": -73.9675132
     },
     {
         "id": 7,
         "name": "Hex and Company",
-        "activtyType": "Fun",
+        "activityType": "Fun",
         "latitude": 40.8055545,
         "longitude": -73.9660733
+    },
+    {
+        "id": 8,
+        "name": "67 Orange Street",
+        "activityType": "Drink",
+        "latitude": 40.802247,
+        "longitude": -73.956741
+    },
+    {
+        "id": 9,
+        "name": "Nobody Told Me",
+        "activityType": "Drink",
+        "latitude": 40.800826,
+        "longitude": -73.96521
+    },
+    {
+        "id": 10,
+        "name": "Bob's Your Uncle",
+        "activityType": "Drink",
+        "latitude": 40.798794,
+        "longitude": -73.962839
     }
 ]
