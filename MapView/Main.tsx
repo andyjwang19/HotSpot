@@ -11,6 +11,7 @@ import DataLoader from './DataLoader';
 
 // import spotsData from '../data/spots.json';
 import FullScreenSpot from './FullScreenSpot';
+import SuggestSpot from '../SuggestSpot';
 
 function parseSpotsData(spots: Spot[]) {
     return new Map(spots.map((s) => [s.id, s]));
@@ -21,6 +22,7 @@ interface MainProps {
     setFilters: (arg0: FilterOptions) => void;
 }
 export default function Main({ filters, setFilters }: MainProps) {
+    const [suggestSpotSelected, setSuggestSpotSelected] = useState<boolean>(false);
     const loader = new DataLoader();
     const spotsData = loader.loadSpots();
     const spotsMap = parseSpotsData(spotsData);
@@ -83,68 +85,81 @@ export default function Main({ filters, setFilters }: MainProps) {
         });
     };
 
-    return dragResult !== dragResultOptions.FullScreen ? (
-        <View style={styles.container}>
-            <Filters filters={filters} setFilters={setFilters} />
-            <MapView
-                style={styles.map}
-                provider={PROVIDER_GOOGLE}
-                showsUserLocation={true}
-                region={{
-                    latitude: currSpot ? currSpot.latitude - 0.0035 : 40.806358,
-                    longitude: currSpot ? currSpot.longitude : -73.962389,
-                    latitudeDelta: currSpot ? 0.01 : 0.0222,
-                    longitudeDelta: currSpot ? 0.01 : 0.0111,
-                }}
-                onMarkerPress={(e) =>
-                    updateCurrSpotFromId({
-                        id: parseInt(e.nativeEvent.id),
-                        latitude: e.nativeEvent.coordinate.latitude,
-                        longitude: e.nativeEvent.coordinate.longitude,
-                    })
-                }
-            >
-                {filterSpots(spotsData, filters)?.map((s) => {
-                    if ((s.activityType as unknown as Activity) === Activity.Food) {
-                        return (
-                            <Marker
-                                key={s.id}
-                                coordinate={{ latitude: s.latitude, longitude: s.longitude }}
-                                identifier={s.id.toString()}
-                                icon={require('../assets/Icons/foodGeotag.png')}
-                            />
-                        );
-                    } else if ((s.activityType as unknown as Activity) === Activity.Drink) {
-                        return (
-                            <Marker
-                                key={s.id}
-                                coordinate={{ latitude: s.latitude, longitude: s.longitude }}
-                                identifier={s.id.toString()}
-                                icon={require('../assets/Icons/drinkGeotag.png')}
-                            />
-                        );
-                    } else {
-                        return (
-                            <Marker
-                                key={s.id}
-                                coordinate={{ latitude: s.latitude, longitude: s.longitude }}
-                                identifier={s.id.toString()}
-                                icon={require('../assets/Icons/funGeotag.png')}
-                            />
-                        );
+    return !suggestSpotSelected ? (
+        dragResult !== dragResultOptions.FullScreen ? (
+            <View style={styles.container}>
+                <Filters filters={filters} setFilters={setFilters} />
+                <MapView
+                    style={styles.map}
+                    provider={PROVIDER_GOOGLE}
+                    showsUserLocation={true}
+                    region={{
+                        latitude: currSpot ? currSpot.latitude - 0.0035 : 40.806358,
+                        longitude: currSpot ? currSpot.longitude : -73.962389,
+                        latitudeDelta: currSpot ? 0.01 : 0.0222,
+                        longitudeDelta: currSpot ? 0.01 : 0.0111,
+                    }}
+                    onMarkerPress={(e) =>
+                        updateCurrSpotFromId({
+                            id: parseInt(e.nativeEvent.id),
+                            latitude: e.nativeEvent.coordinate.latitude,
+                            longitude: e.nativeEvent.coordinate.longitude,
+                        })
                     }
-                })}
-            </MapView>
-            {currSpot !== undefined && currSpot !== null ? (
-                <SpotPopup
-                    currSpot={currSpot}
-                    dragResult={dragResult}
-                    setDragResult={setDragResult}
-                />
-            ) : null}
-        </View>
+                >
+                    {filterSpots(spotsData, filters)?.map((s) => {
+                        if ((s.activityType as unknown as Activity) === Activity.Food) {
+                            return (
+                                <Marker
+                                    key={s.id}
+                                    coordinate={{ latitude: s.latitude, longitude: s.longitude }}
+                                    identifier={s.id.toString()}
+                                    icon={require('../assets/Icons/foodGeotag.png')}
+                                />
+                            );
+                        } else if ((s.activityType as unknown as Activity) === Activity.Drink) {
+                            return (
+                                <Marker
+                                    key={s.id}
+                                    coordinate={{ latitude: s.latitude, longitude: s.longitude }}
+                                    identifier={s.id.toString()}
+                                    icon={require('../assets/Icons/drinkGeotag.png')}
+                                />
+                            );
+                        } else {
+                            return (
+                                <Marker
+                                    key={s.id}
+                                    coordinate={{ latitude: s.latitude, longitude: s.longitude }}
+                                    identifier={s.id.toString()}
+                                    icon={require('../assets/Icons/funGeotag.png')}
+                                />
+                            );
+                        }
+                    })}
+                </MapView>
+                {currSpot !== undefined && currSpot !== null ? (
+                    <SpotPopup
+                        currSpot={currSpot}
+                        dragResult={dragResult}
+                        setDragResult={setDragResult}
+                    />
+                ) : (
+                    <TouchableOpacity
+                        onPress={() => setSuggestSpotSelected(true)}
+                        style={styles.suggestSpotButton}
+                    >
+                        <Text style={styles.suggestSpotButtonText}>Suggest a Spot</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
+        ) : (
+            <FullScreenSpot currSpot={currSpot} setDragResult={setDragResult} />
+        )
     ) : (
-        <FullScreenSpot currSpot={currSpot} setDragResult={setDragResult} />
+        <View style={styles.container}>
+            <SuggestSpot setSuggestSpotSelected={setSuggestSpotSelected} />
+        </View>
     );
 }
 
@@ -156,11 +171,28 @@ const styles = StyleSheet.create({
         left: 0,
         width: '100%',
         height: Dimensions.get('window').height - 95,
-        backgroundColor: 'red',
+        // backgroundColor: 'red',
         // alignItems: 'center',
         // justifyContent: 'center',
     },
     map: {
         ...StyleSheet.absoluteFillObject,
+    },
+    suggestSpotButton: {
+        width: 291,
+        height: 74,
+        position: 'absolute',
+        backgroundColor: 'white',
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 50,
+        bottom: 37 + 18,
+        left: 49,
+    },
+    suggestSpotButtonText: {
+        fontFamily: 'Inter',
+        fontSize: 25,
+        marginTop: 19,
+        textAlign: 'center',
     },
 });
