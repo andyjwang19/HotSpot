@@ -39,7 +39,9 @@ export default function SpotPopup(SpotPopupProps: SpotPopupProps) {
             <View style={styles.ratingContainer}>
                 <RatingGroup />
             </View>
-            <ImageCarouselGroup />
+            <View style={styles.imageCarouselContainer}>
+                <ImageCarouselGroup />
+            </View>
             <View style={styles.reviewsContainer}>
                 {Array.isArray(currSpot.reviews) ? (
                     currSpot.reviews[0] ? (
@@ -78,6 +80,9 @@ const styles = StyleSheet.create({
     ratingContainer: {
         top: 45,
         left: 25,
+    },
+    imageCarouselContainer: {
+        marginTop: 51,
     },
     handle: {
         width: 50,

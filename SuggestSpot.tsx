@@ -116,6 +116,36 @@ export default function SuggestSpot({ setSuggestSpotSelected }: SuggestSpotProps
                         />
                         <Text style={styles.uploadPhotoText}>Upload Photos</Text>
                     </View>
+                    {reviewFilter !== undefined ? (
+                        <TouchableOpacity
+                            onPress={() => setSuggestSpotSelected(false)}
+                            style={[
+                                styles.suggestButton,
+                                reviewFilter === Rating.LOVE
+                                    ? { borderColor: '#FFE3EA', backgroundColor: '#EF476F' }
+                                    : reviewFilter === Rating.LIKE
+                                    ? { borderColor: '#FFEECB', backgroundColor: '#FFC43D' }
+                                    : reviewFilter === Rating.MID
+                                    ? { borderColor: '#D9FBFF', backgroundColor: '#1F9BAB' }
+                                    : null,
+                            ]}
+                        >
+                            <Text
+                                style={[
+                                    styles.suggestButtonText,
+                                    reviewFilter === Rating.LOVE
+                                        ? { color: '#FFE3EA' }
+                                        : reviewFilter === Rating.LIKE
+                                        ? { color: '#FFEECB' }
+                                        : reviewFilter === Rating.MID
+                                        ? { color: '#D9FBFF' }
+                                        : null,
+                                ]}
+                            >
+                                Suggest this spot!
+                            </Text>
+                        </TouchableOpacity>
+                    ) : null}
                 </View>
             </View>
         </View>
@@ -234,5 +264,19 @@ const styles = StyleSheet.create({
         color: '#8E8E8E',
         marginTop: 20,
         marginLeft: 54,
+    },
+    suggestButton: {
+        width: 349,
+        height: 67,
+        borderWidth: 2,
+        borderColor: '#D9D9D9',
+        borderRadius: 20,
+        marginTop: 45,
+    },
+    suggestButtonText: {
+        fontFamily: 'Inter',
+        fontSize: 20,
+        marginTop: 20,
+        textAlign: 'center',
     },
 });

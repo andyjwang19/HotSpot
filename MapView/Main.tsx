@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
-import { useState, useEffect } from 'react';
+import { createRef, useState, useEffect } from 'react';
+
+import mapStyle from './mapStyle.json';
 
 import Filters from './Filters';
 import SpotPopup, { dragResultOptions } from './SpotPopup';
@@ -37,6 +39,7 @@ export default function Main({ filters, setFilters }: MainProps) {
     const [dragResult, setDragResult] = useState<dragResultOptions>(dragResultOptions.Minimize);
 
     const [currSpot, setCurrSpot] = useState<Spot>();
+    const mapView = createRef<MapView>();
     const updateCurrSpotFromId = (c: { id: number; latitude: number; longitude: number }) => {
         const currSpotData = spotsMap.get(c.id);
         if (
@@ -59,10 +62,17 @@ export default function Main({ filters, setFilters }: MainProps) {
                 longitude: currSpotData.longitude,
             });
         }
+        mapView.current?.animateToRegion(
+            {
+                // Takes a region object as parameter
+                longitude: c.longitude,
+                latitude: c.latitude - 0.0035,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+            },
+            500
+        );
     };
-    // const clearCurrSpot = () => {
-    //     setCurrSpot(undefined);
-    // };
 
     useEffect(() => {
         if (dragResult === dragResultOptions.Minimize) {
@@ -90,14 +100,22 @@ export default function Main({ filters, setFilters }: MainProps) {
             <View style={styles.container}>
                 <Filters filters={filters} setFilters={setFilters} />
                 <MapView
+                    ref={mapView}
                     style={styles.map}
                     provider={PROVIDER_GOOGLE}
+                    customMapStyle={mapStyle}
                     showsUserLocation={true}
+                    // region={{
+                    //     latitude: currSpot ? currSpot.latitude - 0.0035 : 40.806358,
+                    //     longitude: currSpot ? currSpot.longitude : -73.962389,
+                    //     latitudeDelta: currSpot ? 0.01 : 0.0222,
+                    //     longitudeDelta: currSpot ? 0.01 : 0.0111,
+                    // }}
                     region={{
-                        latitude: currSpot ? currSpot.latitude - 0.0035 : 40.806358,
-                        longitude: currSpot ? currSpot.longitude : -73.962389,
-                        latitudeDelta: currSpot ? 0.01 : 0.0222,
-                        longitudeDelta: currSpot ? 0.01 : 0.0111,
+                        latitude: 40.806358,
+                        longitude: -73.962389,
+                        latitudeDelta: 0.0222,
+                        longitudeDelta: 0.0111,
                     }}
                     onMarkerPress={(e) =>
                         updateCurrSpotFromId({
