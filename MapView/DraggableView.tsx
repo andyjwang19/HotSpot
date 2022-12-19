@@ -42,7 +42,7 @@ const DragableView: React.FC<CustomViewProps> = ({ children, setDragResult, styl
             if (y.value < -200) {
                 y.value = withSpring(-345);
                 runOnJS(setDragResult)(dragResultOptions.FullScreen);
-            } else if (y.value > 320) {
+            } else if (y.value > 270) {
                 runOnJS(setDragResult)(dragResultOptions.Minimize);
                 y.value = withSpring(360);
             } else {
