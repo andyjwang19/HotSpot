@@ -9,12 +9,7 @@ import { DragableView } from './DraggableView';
 import { useFonts } from 'expo-font';
 import RatingGroup from './RatingGroup';
 import ImageCarouselGroup from './ImageCarouselGroup';
-
-export enum dragResultOptions {
-    Normal,
-    FullScreen,
-    Minimize,
-}
+import { dragResultOptions } from './dragResultOptions';
 
 interface SpotPopupProps {
     currSpot: Spot;

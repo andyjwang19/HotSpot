@@ -8,7 +8,7 @@ import Animated, {
     useSharedValue,
     withSpring,
 } from 'react-native-reanimated';
-import { dragResultOptions } from './SpotPopup';
+import { dragResultOptions } from './dragResultOptions';
 
 type CustomViewProps = {
     children: React.ReactNode;

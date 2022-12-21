@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, AnimatedRegion } from 'react-native-maps';
 import { createRef, useState, useEffect } from 'react';
+import { useFonts } from 'expo-font';
 
 import mapStyle from './mapStyle.json';
 
 import Filters from './Filters';
-import SpotPopup, { dragResultOptions } from './SpotPopup';
+import SpotPopup from './SpotPopup';
+import { dragResultOptions } from './dragResultOptions';
 
 import { Activity, FilterOptions } from '../models/filters';
 import Spot from '../models/Spot';
@@ -25,10 +27,18 @@ interface MainProps {
 }
 export default function Main({ filters, setFilters }: MainProps) {
     const [suggestSpotSelected, setSuggestSpotSelected] = useState<boolean>(false);
+    const [dragResult, setDragResult] = useState<dragResultOptions>(dragResultOptions.Minimize);
+    const [currSpot, setCurrSpot] = useState<Spot>();
+
     const loader = new DataLoader();
     const spotsData = loader.loadSpots();
     const spotsMap = parseSpotsData(spotsData);
 
+    useEffect(() => {
+        if (dragResult === dragResultOptions.Minimize) {
+            setCurrSpot(undefined);
+        }
+    }, [dragResult]);
     // const [filters, setFilters] = useState<FilterOptions>({
     //     foodSelected: false,
     //     drinkSelected: false,
@@ -36,9 +46,13 @@ export default function Main({ filters, setFilters }: MainProps) {
     //     price: 0,
     // });
 
-    const [dragResult, setDragResult] = useState<dragResultOptions>(dragResultOptions.Minimize);
-
-    const [currSpot, setCurrSpot] = useState<Spot>();
+    const [loaded] = useFonts({
+        InterBold: require('../assets/Fonts/Inter-Bold.ttf'),
+        Inter: require('../assets/Fonts/Inter.ttf'),
+    });
+    if (!loaded) {
+        return null;
+    }
     const mapView = createRef<MapView>();
     const updateCurrSpotFromId = (c: { id: number; latitude: number; longitude: number }) => {
         const currSpotData = spotsMap.get(c.id);
@@ -73,12 +87,6 @@ export default function Main({ filters, setFilters }: MainProps) {
             500
         );
     };
-
-    useEffect(() => {
-        if (dragResult === dragResultOptions.Minimize) {
-            setCurrSpot(undefined);
-        }
-    }, [dragResult]);
 
     const aniRegion = new AnimatedRegion();
 

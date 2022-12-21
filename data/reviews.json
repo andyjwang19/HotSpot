@@ -40,5 +40,75 @@
         "authorId": 5,
         "rating": 2,
         "review": "I used to love Calle Ocho, but they closed recently. Bodega 88 is run by the same management though! By the way this app is awesome!"
+    },
+    {
+        "id": 7,
+        "spotId": 3,
+        "authorId": 1,
+        "rating": 2,
+        "review": "I LIKE ROTI ROLL!!!!! WINGS ARE GAS"
+    },
+    {
+        "id": 8,
+        "spotId": 4,
+        "authorId": 1,
+        "rating": 2,
+        "review": "Great Chinese food! I love their eggplant"
+    },
+    {
+        "id": 9,
+        "spotId": 5,
+        "authorId": 2,
+        "rating": 1,
+        "review": "i like hot pot"
+    },
+    {
+        "id": 10,
+        "spotId": 7,
+        "authorId": 3,
+        "rating": 0,
+        "review": "I like puzzles and coffee, but sometime the vibes are off."
+    },
+    {
+        "id": 11,
+        "spotId": 8,
+        "authorId": 4,
+        "rating": 2,
+        "review": "Great bar! lovely cocktails and decorations"
+    },
+    {
+        "id": 12,
+        "spotId": 9,
+        "authorId": 1,
+        "rating": 2,
+        "review": "They have suprisingly great brunch! amazing avocado toast."
+    },
+    {
+        "id": 13,
+        "spotId": 10,
+        "authorId": 3,
+        "rating": 1,
+        "review": "Great drinks! I would go often"
+    },
+    {
+        "id": 13,
+        "spotId": 10,
+        "authorId": 1,
+        "rating": 2,
+        "review": "This is MY FAVORITE PLACE. GO and get a weird mule."
+    },
+    {
+        "id": 13,
+        "spotId": 11,
+        "authorId": 3,
+        "rating": 1,
+        "review": "I went and it was great but i saw my professor!"
+    },
+    {
+        "id": 14,
+        "spotId": 11,
+        "authorId": 4,
+        "rating": 1,
+        "review": "I went and I saw my UI group member! and my Professor!"
     }
 ]
