@@ -16,8 +16,29 @@
     {
         "id": 3,
         "spotId": 1,
-        "authorId": 2,
+        "authorId": 3,
         "rating": 1,
         "review": "I am Rachel and I like this place, but not too too strongly."
+    },
+    {
+        "id": 4,
+        "spotId": 2,
+        "authorId": 4,
+        "rating": 0,
+        "review": "I am not crazy about Toms diner, but I like their milkshakes and fries. Some say the milkshakes taste like chemicals, but i've only been twice."
+    },
+    {
+        "id": 5,
+        "spotId": 6,
+        "authorId": 4,
+        "rating": 2,
+        "review": "I really like it here!  Its tiny and cute and you can see the whole thing in an hour and no one is ever there so it is nice and quiet"
+    },
+    {
+        "id": 6,
+        "spotId": 11,
+        "authorId": 5,
+        "rating": 2,
+        "review": "I used to love Calle Ocho, but they closed recently. Bodega 88 is run by the same management though! By the way this app is awesome!"
     }
 ]

@@ -1,7 +1,7 @@
 import Person from './Person';
 
 export enum Rating {
-    MID,
+    OKAY,
     LIKE,
     LOVE,
 }

@@ -155,6 +155,31 @@ export default function Main({ filters, setFilters }: MainProps) {
                             );
                         }
                     })}
+                    {/* PULL FROM JSON LATER */}
+                    <Marker
+                        key={99}
+                        coordinate={{ latitude: 40.807502, longitude: -73.964358 }}
+                        identifier={'dot1'}
+                        icon={require('../assets/Icons/foodDotTag.png')}
+                    />
+                    <Marker
+                        key={100}
+                        coordinate={{ latitude: 40.806522, longitude: -73.960531 }}
+                        identifier={'dot2'}
+                        icon={require('../assets/Icons/foodDotTag.png')}
+                    />
+                    <Marker
+                        key={101}
+                        coordinate={{ latitude: 40.805588, longitude: -73.965809 }}
+                        identifier={'dot3'}
+                        icon={require('../assets/Icons/drinkDotTag.png')}
+                    />
+                    <Marker
+                        key={102}
+                        coordinate={{ latitude: 40.804586, longitude: -73.963825 }}
+                        identifier={'dot4'}
+                        icon={require('../assets/Icons/funDotTag.png')}
+                    />
                 </MapView>
                 {currSpot !== undefined && currSpot !== null ? (
                     <SpotPopup

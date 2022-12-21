@@ -77,7 +77,14 @@ const Filters = ({ filters, setFilters }: FilterProps) => {
 
             <View style={styles.additionalFiltersContainer}>
                 <TouchableOpacity style={styles.activites}>
-                    <Text style={styles.priceButtonText}>Price </Text>
+                    <Text style={styles.priceButtonText}>
+                        Price{'  '}
+                        <Image
+                            source={require('../assets/Icons/Polygon.png')}
+                            resizeMode="contain"
+                            style={styles.priceArrow}
+                        />
+                    </Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -148,6 +155,7 @@ const styles = StyleSheet.create({
     priceButtonText: {
         textAlign: 'center',
         color: 'black',
+        marginLeft: 25,
     },
 
     foodButton: {
@@ -170,6 +178,12 @@ const styles = StyleSheet.create({
     pressedFunButton: {
         backgroundColor: funColor,
         borderColor: pressedFunColor,
+    },
+
+    priceArrow: {
+        height: 10,
+        width: 17,
+        transform: [{ scaleY: -1 }],
     },
 });
 

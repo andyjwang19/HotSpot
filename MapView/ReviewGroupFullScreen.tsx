@@ -80,5 +80,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
         fontSize: 15,
         marginTop: 9,
+        marginLeft: 25,
     },
 });

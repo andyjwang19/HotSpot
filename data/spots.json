@@ -68,5 +68,12 @@
         "activityType": "Drink",
         "latitude": 40.798794,
         "longitude": -73.962839
+    },
+    {
+        "id": 11,
+        "name": "Bodega 88",
+        "activityType": "Drink",
+        "latitude": 40.787516,
+        "longitude": -73.971214
     }
 ]
