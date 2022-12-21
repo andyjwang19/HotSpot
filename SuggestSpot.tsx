@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useFonts } from 'expo-font';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 import RatingIcon from './assets/Icons/RatingIcon';
 import { Rating } from './models/Review';
@@ -8,6 +9,22 @@ import { Rating } from './models/Review';
 interface SuggestSpotProps {
     setSuggestSpotSelected: (arg0: boolean) => void;
 }
+
+const GooglePlacesInput = () => {
+    return (
+        <GooglePlacesAutocomplete
+            placeholder="Search"
+            onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
+                console.log(data, details);
+            }}
+            query={{
+                key: 'AIzaSyBwhoGsaLhCOiRPjzuHm6c5yY1_erxQwRM',
+                language: 'en',
+            }}
+        />
+    );
+};
 
 export default function SuggestSpot({ setSuggestSpotSelected }: SuggestSpotProps) {
     const [reviewFilter, setReviewFilter] = useState<Rating>();
@@ -37,11 +54,15 @@ export default function SuggestSpot({ setSuggestSpotSelected }: SuggestSpotProps
             </TouchableOpacity>
             <View style={styles.suggestContainer}>
                 <Text style={styles.suggestTitle}>Suggest a Spot</Text>
-                <TextInput
+                <View style={styles.searchBar}>
+                    <GooglePlacesInput />
+                </View>
+
+                {/* <TextInput
                     style={styles.searchBar}
                     placeholder="   Search your spot"
                     keyboardType="default"
-                />
+                /> */}
                 <View style={styles.ratingContainer}>
                     <Text style={styles.ratingTitle}>Do you love, like, or okay this spot?</Text>
                     <View style={styles.reviewFilterOptions}>
@@ -84,18 +105,18 @@ export default function SuggestSpot({ setSuggestSpotSelected }: SuggestSpotProps
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => flipReviewFilter(Rating.MID)}
+                            onPress={() => flipReviewFilter(Rating.OKAY)}
                             style={styles.button}
                         >
-                            {reviewFilter === Rating.MID ? (
+                            {reviewFilter === Rating.OKAY ? (
                                 <RatingIcon
-                                    rating={Rating.MID}
+                                    rating={Rating.OKAY}
                                     empty={false}
                                     style={[styles.ratingIcons, styles.okayIconPosition]}
                                 />
                             ) : (
                                 <RatingIcon
-                                    rating={Rating.MID}
+                                    rating={Rating.OKAY}
                                     empty={true}
                                     style={[styles.ratingIcons, styles.okayIconPosition]}
                                 />
@@ -125,7 +146,7 @@ export default function SuggestSpot({ setSuggestSpotSelected }: SuggestSpotProps
                                     ? { borderColor: '#FFE3EA', backgroundColor: '#EF476F' }
                                     : reviewFilter === Rating.LIKE
                                     ? { borderColor: '#FFEECB', backgroundColor: '#FFC43D' }
-                                    : reviewFilter === Rating.MID
+                                    : reviewFilter === Rating.OKAY
                                     ? { borderColor: '#D9FBFF', backgroundColor: '#1F9BAB' }
                                     : null,
                             ]}
@@ -137,7 +158,7 @@ export default function SuggestSpot({ setSuggestSpotSelected }: SuggestSpotProps
                                         ? { color: '#FFE3EA' }
                                         : reviewFilter === Rating.LIKE
                                         ? { color: '#FFEECB' }
-                                        : reviewFilter === Rating.MID
+                                        : reviewFilter === Rating.OKAY
                                         ? { color: '#D9FBFF' }
                                         : null,
                                 ]}

@@ -23,6 +23,27 @@ const PROFILE_IMAGES = new Map([
             uri: require('./assets/ProfilePictures/theo.png'),
         },
     ],
+    [
+        'rachel',
+        {
+            imgName: 'rachel',
+            uri: require('./assets/ProfilePictures/rachel.jpg'),
+        },
+    ],
+    [
+        'teji',
+        {
+            imgName: 'teji',
+            uri: require('./assets/ProfilePictures/teji.png'),
+        },
+    ],
+    [
+        'brian',
+        {
+            imgName: 'brian',
+            uri: require('./assets/ProfilePictures/brian.jpg'),
+        },
+    ],
 ]);
 
 export default function ProfileComponent(ProfileProps: {

@@ -11,7 +11,7 @@ interface RatingIconProps {
 
 export default function RatingIcon({ rating, empty, style }: RatingIconProps) {
     if (empty === true) {
-        if (rating === Rating.MID) {
+        if (rating === Rating.OKAY) {
             return <Image source={require('./okayEmpty.png')} resizeMode="contain" style={style} />;
         } else if (rating === Rating.LIKE) {
             return <Image source={require('./likeEmpty.png')} resizeMode="contain" style={style} />;
@@ -19,7 +19,7 @@ export default function RatingIcon({ rating, empty, style }: RatingIconProps) {
             return <Image source={require('./loveEmpty.png')} resizeMode="contain" style={style} />;
         }
     } else {
-        if (rating === Rating.MID) {
+        if (rating === Rating.OKAY) {
             return <Image source={require('./okay.png')} resizeMode="contain" style={style} />;
         } else if (rating === Rating.LIKE) {
             return <Image source={require('./like.png')} resizeMode="contain" style={style} />;

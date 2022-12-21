@@ -25,6 +25,7 @@ interface FullScreenSpotProps {
 }
 export default function FullScreenSpot(FullScreenSpotProps: FullScreenSpotProps) {
     const [reviewFilter, setReviewFilter] = useState<Rating>();
+    const [bookmark, setBookmark] = useState<boolean>(false);
     const [loaded] = useFonts({
         InterBold: require('../assets/Fonts/Inter-Bold.ttf'),
         Inter: require('../assets/Fonts/Inter.ttf'),
@@ -68,11 +69,24 @@ export default function FullScreenSpot(FullScreenSpotProps: FullScreenSpotProps)
                             style={styles.backButton}
                         />
                     </TouchableOpacity>
-                    <Image
-                        source={require('../assets/Icons/bookmark.png')}
-                        resizeMode="contain"
-                        style={styles.bookmarkButton}
-                    />
+                    <TouchableOpacity
+                        onPress={() => setBookmark(!bookmark)}
+                        // style={styles.bookmarkButtonTouchable}
+                    >
+                        {!bookmark ? (
+                            <Image
+                                source={require('../assets/Icons/bookmark.png')}
+                                resizeMode="contain"
+                                style={styles.bookmarkButton}
+                            />
+                        ) : (
+                            <Image
+                                source={require('../assets/Icons/bookmark-1.png')}
+                                resizeMode="contain"
+                                style={styles.bookmarkButton}
+                            />
+                        )}
+                    </TouchableOpacity>
                     <Image
                         source={require('../assets/Icons/information-circle.png')}
                         resizeMode="contain"
@@ -136,18 +150,18 @@ export default function FullScreenSpot(FullScreenSpotProps: FullScreenSpotProps)
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                onPress={() => flipReviewFilter(Rating.MID)}
+                                onPress={() => flipReviewFilter(Rating.OKAY)}
                                 style={styles.button}
                             >
-                                {reviewFilter === Rating.MID ? (
+                                {reviewFilter === Rating.OKAY ? (
                                     <RatingIcon
-                                        rating={Rating.MID}
+                                        rating={Rating.OKAY}
                                         empty={false}
                                         style={[styles.ratingIcons, styles.okayIconPosition]}
                                     />
                                 ) : (
                                     <RatingIcon
-                                        rating={Rating.MID}
+                                        rating={Rating.OKAY}
                                         empty={true}
                                         style={[styles.ratingIcons, styles.okayIconPosition]}
                                     />
@@ -193,8 +207,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 24,
         height: 24,
+        // left: 326,
         left: 326,
-        top: 13,
+        top: -17,
+    },
+    bookmarkButtonTouchable: {
+        zIndex: 5,
+        width: 30,
+        height: 10,
     },
     informationButton: {
         position: 'absolute',
@@ -253,6 +273,7 @@ const styles = StyleSheet.create({
     },
     reviewFilterOptions: {
         flexDirection: 'row',
+        marginLeft: 7,
     },
     button: {
         zIndex: 5,
@@ -277,6 +298,7 @@ const styles = StyleSheet.create({
     reviewsContainer: {
         height: 600,
         flex: 1,
+        marginTop: 15,
         // borderWidth: 2,
         // borderColor: 'red',
     },
